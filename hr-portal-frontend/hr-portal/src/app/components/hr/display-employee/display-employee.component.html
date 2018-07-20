@@ -1,0 +1,121 @@
+<div class="container">
+  <!-- The Form -->
+  <div class="row">
+      <div class="col-lg-3">
+
+      </div>
+
+      <div class="col-lg-6">
+
+        <form class="example-form">
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Employee ID Number" 
+                    value="" 
+                    [(ngModel)]="x" 
+                    (ngModelChange)="onChangeEmployeeId(x)"
+                    name="employeeId">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" (click)="search()">Search</button>
+
+        </form>
+
+      </div>
+      
+      <div class="col-lg-3">
+
+      </div>
+  </div>
+
+  <div class="row" [hidden]="!warning">
+      <div class="col-lg-3">
+
+      </div>
+
+      <div class="col-lg-6">
+
+        <h2 class="warning" color="warn">Employee ID #{{emlpoyeeId}} Not Found!</h2>
+
+      </div>
+      
+      <div class="col-lg-3">
+
+      </div>
+  </div>
+
+  
+
+  <!-- The Employee's information -->
+  <div class="row" [hidden]="!found">
+          
+        <div class="col-lg-3">
+    
+        </div>
+
+        <div class="col-lg-6">
+
+          <table>
+            <tr>
+              <td>First Name</td>
+              <td>{{employee.firstName}}</td>
+            </tr>
+
+            <tr>
+              <td>Last Name</td>
+              <td>{{employee.lastName}}</td>
+            </tr>
+
+            <tr>
+              <td>Gender</td>
+              <td>{{employee.gender}}</td>
+            </tr>
+
+            <tr>
+              <td>Birth Date</td>
+              <td>{{employee.birthDate}}</td>
+            </tr>
+
+            <tr>
+              <td>Job Title</td>
+              <td>{{formattedTitle}}</td>
+            </tr>
+
+            <tr>
+              <td>Salary</td>
+              <td>{{formattedSalary}}</td>
+            </tr>
+
+          </table>
+
+          <h2>Department History </h2>
+
+          <!-- To Display all departments-->
+
+          <table mat-table [dataSource]="departments" class="mat-elevation-z8">
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="name" >
+              <th mat-header-cell  *matHeaderCellDef> Department </th>
+              <td mat-cell *matCellDef="let department"> {{department.name}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="fromDate">
+              <th mat-header-cell *matHeaderCellDef> From </th>
+              <td mat-cell *matCellDef="let department"> {{department.fromDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="toDate">
+                <th mat-header-cell *matHeaderCellDef> Until </th>
+                <td mat-cell *matCellDef="let department"> {{department.toDate}} </td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <button mat-raised-button color="accent" (click)="editEmployee()">Edit Employee</button>
+          <button mat-raised-button color="warn" (click)="deleteEmployee()">Delete Employee</button>
+        </div>
+</div>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <title th:inline="text">Employee #[[${employeeId}]]</title>
+</head>
+<body>
+	<h1 th:inline="text">
+		Displaying information for employee #[[${employeeId}]]
+	</h1>
+	<h2 th:inline="text">
+		First Name: [[${emp.firstName}]]
+	</h2>
+	<h2 th:inline="text">
+		Last Name: [[${emp.lastName}]]
+	</h2>
+	<h2 th:inline="text">
+		Gender: [[${emp.gender}]]
+	</h2>
+	<h2 th:inline="text">
+		Birth Date: [[${emp.birthDate}]]
+	</h2>
+	<h2>
+		Departments:
+	</h2>
+	<table>
+		<tr>
+			<th>Department Name</th>
+			<th>Start Date<th>
+			<th>End Date<th>
+		</tr>
+		<tr th:each="dept: ${departments}">
+	      	<td th:text="${dept.department.dept_name}"></td>
+	        <td th:text="${dept.from_date}"></td>
+	        <td th:text="${dept.to_date}"></td>
+      	</tr>
+	</table>
+	
+</body>

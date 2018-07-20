@@ -1,0 +1,35 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.mat-raised-button {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+table {
+  width: 100%;
+  margin: 10px;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px;
+}
+
+.warning {
+  margin-top: 50px;
+  color: lightcoral;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

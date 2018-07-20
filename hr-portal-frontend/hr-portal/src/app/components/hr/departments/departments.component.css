@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+    margin-bottom: 40px; 
+}
+
+button {
+    margin-bottom: 10px; 
+}
+
+.mat-cell {
+    align-content: flex-start;
+    text-align: left;
+}
+
+.mat-header-cell {
+    padding-right: 5%;
+}
+
+.row {
+    overflow: scroll;
+}
+
+.fa-id-badge {
+    cursor: pointer;
+}

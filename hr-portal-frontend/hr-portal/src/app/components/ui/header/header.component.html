@@ -1,0 +1,24 @@
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <a class="navbar-brand" href="/"> {{ title }}</a>
+    <div class="navbar-expand mr-auto">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" (click)="onHome()">Home</a>
+        <a class="nav-item nav-link" 
+            (click)="onLogin()"
+            [hidden]="authenticated()">Login</a>
+        <a class="nav-item nav-link" 
+            (click)="onDepartments()"
+            [hidden]="!authenticated()">Departments</a>
+        <a class="nav-item nav-link" 
+            (click)="onEmployee()"
+            [hidden]="!authenticated()">Find Employee</a>
+      </div>
+    </div>
+    <div class="navbar-expand ml-auto navbar-nav">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" (click)=onLogout() target="_blank" [hidden]="!authenticated()">
+          <i class="fa fa fa-power-off"></i> 
+        </a>
+      </div>
+    </div>
+  </nav>
