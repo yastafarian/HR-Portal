@@ -24,6 +24,7 @@ import { EditEmployeeComponent } from './components/hr/dialogs/edit-employee/edi
 import {MatIconModule} from '@angular/material/icon';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ChangeManagerComponent } from './components/hr/dialogs/change-manager/change-manager.component';
+import { DeleteEmployeeComponent } from './components/hr/dialogs/delete-employee/delete-employee.component';
 
 
 
@@ -69,7 +70,8 @@ const routes: Routes = [
     CreateDepartmentComponent,
     EditEmployeeComponent,
     PageNotFoundComponent,
-    ChangeManagerComponent
+    ChangeManagerComponent,
+    DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ const routes: Routes = [
   entryComponents: [
     CreateDepartmentComponent,
     EditEmployeeComponent,
-    ChangeManagerComponent
+    ChangeManagerComponent,
+    DeleteEmployeeComponent
   ]
 })
 

@@ -22,13 +22,13 @@ import com.yalarifi.hrportal.repository.EmployeeRepository;
 public class DepartmentService {
 	
 	@Autowired
-	private DepartmentRepository departmentRepository;
+	DepartmentRepository departmentRepository;
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	EmployeeRepository employeeRepository;
 	
 	@Autowired
-	private DepartmentManagerRepository departmentManagerRepository;
+	DepartmentManagerRepository departmentManagerRepository;
 	
 	public List<DepartmentDTO> findAll(){
 		Iterable<Department> depts = departmentRepository.findAll();
@@ -56,7 +56,9 @@ public class DepartmentService {
 		Department newDepartmentEntity = new Department(deptNo, deptName);
 		newDepartmentEntity = departmentRepository.save(newDepartmentEntity);
 		
-		Employee managerEntity = employeeRepository.findByEmpNo(empNo);
+		Employee managerEntity = employeeRepository.findById(empNo).orElse(null);
+		
+		//TODO: check if null
 		
 		/*
 		 * Assume the from_date is always today's date when creating a new department

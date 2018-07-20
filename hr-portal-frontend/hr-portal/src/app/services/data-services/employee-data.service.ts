@@ -8,7 +8,6 @@ import { Employee } from '../../models/employee';
 })
 export class EmployeeDataService {
 
-
   constructor(
     private api: EmployeeApiService
   ) { }
@@ -19,5 +18,9 @@ export class EmployeeDataService {
 
   editEmployee(employee: Employee): Observable<Employee> {
     return this.api.editEmployee(employee);
+  }
+
+  deleteEmployee(empNo: Number): Observable<any> {
+    return this.api.deleteEmployee(empNo);
   }
 }

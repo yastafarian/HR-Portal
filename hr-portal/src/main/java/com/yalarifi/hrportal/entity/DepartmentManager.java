@@ -39,9 +39,7 @@ public class DepartmentManager {
 	}
 
 	@EmbeddedId
-	private 
-	
-	DepartmentEmployeeID id;
+	private DepartmentEmployeeID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("deptNo")

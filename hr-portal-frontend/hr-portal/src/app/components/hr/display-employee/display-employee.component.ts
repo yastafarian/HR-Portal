@@ -6,6 +6,7 @@ import { AppService } from '../../../services/app.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditEmployeeComponent } from '../dialogs/edit-employee/edit-employee.component';
+import { DeleteEmployeeComponent } from '../dialogs/delete-employee/delete-employee.component';
 
 @Component({
   selector: 'app-display-employee',
@@ -33,6 +34,8 @@ export class DisplayEmployeeComponent implements OnInit {
 
   formattedTitle: String;
 
+  searchedId = '';
+
   found = false;
 
   warning = false;
@@ -49,20 +52,26 @@ export class DisplayEmployeeComponent implements OnInit {
 
         this.employee.id = Number(this.emlpoyeeId);
         this.departments = this.employee.departments;
-        if (this.employee.currentSalary === 0 || this.employee.currentTitle === null){
-          this.formattedSalary = '---';
+
+        if (this.employee.currentTitle === null){
           this.formattedTitle = "Left the company";
+        }
+        else {
+          this.formattedTitle = this.employee.currentTitle;
+        }
+
+        if (this.employee.currentSalary === 0){
+          this.formattedSalary = '---';
         }
         else{
           this.formattedSalary = '$' + this.employee.currentSalary.toLocaleString();
-          this.formattedTitle = this.employee.currentTitle;
         }
         
         this.found = true;
         this.warning = false;
       }
       else{
-        console.log('not found!');
+        this.searchedId = this.emlpoyeeId;
         this.found = false;
         this.warning = true;;
       }
@@ -102,9 +111,29 @@ export class DisplayEmployeeComponent implements OnInit {
   }
 
   deleteEmployee(){
-    /*
-      displat a dialog to make sure
-    */
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    let firstName = this.employee.firstName;
+    let lastName = this.employee.lastName;
+
+    dialogConfig.data = { firstName, lastName};
+    
+    const dialogRef = this.dialog.open(DeleteEmployeeComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+        data => {
+          if(data['delete']){
+            
+            this.dataService.deleteEmployee(this.employee.id).subscribe(() => {
+              this.router.navigateByUrl("/employee")
+            });
+            
+          }
+        }
+    ); 
   }
 
   search(){

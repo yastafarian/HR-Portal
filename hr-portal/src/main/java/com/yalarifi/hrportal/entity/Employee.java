@@ -45,19 +45,19 @@ public class Employee {
 	Date hire_date;
 	
 	@OneToMany(
-			mappedBy="empNo",
+			mappedBy="employee",
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL, 
 	        orphanRemoval = true)
-	@Where(clause="to_date='9999-01-01'")
+	//@Where(clause="to_date='9999-01-01'")
 	List<Title> titles;
 	
 	@OneToMany(
-			mappedBy="empNo",
+			mappedBy="employee",
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL, 
 	        orphanRemoval = true)
-	@Where(clause="to_date='9999-01-01'")
+	//@Where(clause="to_date='9999-01-01'")
 	List<Salary> salaries;
 	
 	@OneToMany(

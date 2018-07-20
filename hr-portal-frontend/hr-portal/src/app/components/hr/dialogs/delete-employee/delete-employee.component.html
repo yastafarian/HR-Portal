@@ -1,0 +1,14 @@
+<div class="conformation">
+
+    <h2 md-dialog-title>Delete {{firstName}} {{lastName}}?</h2>
+    <mat-dialog-content>
+      Deleting an employee is an irreversable action. Are you sure you want to premnetly delete this 
+      employee?
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button class="mat-raised-button" (click)="cancel()"> Cancel </button>
+      <button class="mat-raised-button mat-primary" (click)="confirm()"> Delete </button>
+    </mat-dialog-actions>
+
+</div>

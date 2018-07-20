@@ -9,12 +9,12 @@ import { Employee } from '../../models/employee';
 })
 export class EmployeeApiService {
 
+
   constructor(
     private http: HttpClient
   ) { }
 
   getEmployeeById(employeeId: string): Observable<Employee>{
-    console.log('Getting Employee# ' + employeeId);
     return this.http
                 .get('http://localhost:9000/employee?employeeId=' + employeeId).pipe(map(
                   (data: Employee) => {
@@ -24,13 +24,21 @@ export class EmployeeApiService {
   }
 
   editEmployee(employee: Employee): Observable<Employee> {
-    console.log(employee);
     return this.http
       .put('http://localhost:9000/edit_employee', employee).pipe(map(
         (newEmployee: Employee)=>{
           return newEmployee;
         }
       ));
+  }
+
+  deleteEmployee(empNo: Number): Observable<any> {
+    return this.http
+                .delete('http://localhost:9000/employee?employeeId=' + empNo).pipe(map(
+                  (res) => {
+                    console.log(res);
+                  }
+                ));
   }
 
   private handleError(error: Response | any){

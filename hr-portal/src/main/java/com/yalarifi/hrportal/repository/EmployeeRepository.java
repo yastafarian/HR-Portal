@@ -6,6 +6,5 @@ import com.yalarifi.hrportal.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
-	
-	Employee findByEmpNo(int empNo);
+
 } 

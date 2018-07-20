@@ -2,6 +2,7 @@ package com.yalarifi.hrportal.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -53,11 +54,10 @@ public class EmployeeController {
     	return new ResponseEntity<Map<String, Object>>(employee.getModel(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/employee", 
-			produces={"application/json"},
-			method= RequestMethod.GET)
+	@RequestMapping(value="/employee")
 	@LogExecutionTime
 	public Map<String, Object> getEmployee(@RequestParam(value = "employeeId", required=true) final String employeeId) {
+		logger.info("/GET " + employeeId);
 		
 		EmployeeDTO employee = employeeService.findByEmpNo(Integer.parseInt(employeeId));
 		
@@ -65,6 +65,27 @@ public class EmployeeController {
 			return employee.getModel();
 		else
 			return null;
+	}
+	
+	@RequestMapping(value="/employee", 
+			method= RequestMethod.DELETE)
+	@LogExecutionTime
+	public ResponseEntity<?> deleteEmployee(@RequestParam(value = "employeeId", required=true) final String employeeId) {
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		logger.info("/DELETE " + employeeId);
+		
+		boolean deleted = employeeService.deleteEmployee(Integer.parseInt(employeeId));
+		
+		if (deleted) {
+			model.put("message", employeeId + " was deleted");
+			return new ResponseEntity<Map<String, Object>>(model, HttpStatus.OK);
+		}
+		else {
+			model.put("message", "Cannot delete " + employeeId + ". Either the employee doesn't exist or is currently a manager");
+			return new ResponseEntity<Map<String, Object>>(model, HttpStatus.CONFLICT);
+		}
 	}
 	
 }
