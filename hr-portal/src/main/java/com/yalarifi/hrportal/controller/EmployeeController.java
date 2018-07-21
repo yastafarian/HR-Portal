@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,15 +26,16 @@ public class EmployeeController {
 	private static final Logger logger = Logger.getLogger(EmployeeController.class.getName());
 	
 	@Autowired
-	EmployeeService employeeService;
+	private EmployeeService employeeService;
 	
     @RequestMapping(
     		value= "/edit_employee",
     		method= RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('WRITE')")
     @LogExecutionTime
 	public ResponseEntity<?> editEmployee(@RequestBody Map<String, Object> payload) throws NumberFormatException, ParseException{
     	logger.info("/PUT /employee");
-    	if (payload.equals(null)) {
+    	if (payload == null) {
     		return new ResponseEntity<Error>(new Error(), HttpStatus.BAD_REQUEST);
     	}
     	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.s");
@@ -69,6 +71,7 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/employee", 
 			method= RequestMethod.DELETE)
+	@PreAuthorize("hasAuthority('WRITE')")
 	@LogExecutionTime
 	public ResponseEntity<?> deleteEmployee(@RequestParam(value = "employeeId", required=true) final String employeeId) {
 		

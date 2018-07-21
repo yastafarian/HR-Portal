@@ -10,7 +10,7 @@ public class DepartmentDtoFactory {
 	public static List<DepartmentDTO> mockDepartmentDtoList(int number){
 		List<DepartmentDTO> departments = new ArrayList<DepartmentDTO>();
 		for(int i = 0; i< number; i++) {
-			DepartmentDTO dept = new DepartmentDTO("d" + number, "dept " + number);
+			DepartmentDTO dept = new DepartmentDTO("d" + number, "dept " + number, "Some Manager");
 			departments.add(dept);
 		}
 		return departments;

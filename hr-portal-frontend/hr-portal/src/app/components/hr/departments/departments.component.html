@@ -4,7 +4,7 @@
 
     </div>
     <div class="col-lg-6">
-      <button mat-raised-button color="primary" (click)="createDepartment()">Create New Department</button>
+      <button mat-raised-button color="primary" [hidden]="!canWrite" (click)="createDepartment()">Create New Department</button>
       <table mat-table [dataSource]="departments" class="mat-elevation-z8">
 
           <!--- Note that these columns can be defined in any order.
@@ -28,10 +28,10 @@
               <td mat-cell *matCellDef="let department"> {{department.currentManager}}</td>
           </ng-container>
 
-          <!-- Manager Column -->
+          <!-- Actions Column -->
           <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th>
-              <td mat-cell *matCellDef="let department"> 
+              <td [hidden]= "!canWrite" mat-cell *matCellDef="let department"> 
                   <i class="fa fa-id-badge fa-2x" 
                      aria-hidden="true" 
                      (click)="changeManager(department)"></i>

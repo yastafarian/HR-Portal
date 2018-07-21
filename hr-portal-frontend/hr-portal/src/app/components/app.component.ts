@@ -46,6 +46,7 @@ export class AppComponent {
   logout() {
     this.http.post('http://localhost:9000/logout', {}).pipe(finalize(() => {
       this.app.authenticated =  false;
+      localStorage.clear();
       this.snackBar.open('Logged out Successfully!', 'Dismiss', {
         duration: 3000
       });

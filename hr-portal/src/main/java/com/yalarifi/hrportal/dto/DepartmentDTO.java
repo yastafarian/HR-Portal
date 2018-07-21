@@ -19,7 +19,7 @@ public class DepartmentDTO {
 		
 		List<DepartmentManager> managers = newDepartmentEntity.getCurrentManager();
 		
-		if (!managers.equals(null) && !managers.isEmpty()){
+		if (managers != null && !managers.isEmpty()){
 			Employee currentManager = managers.get(0).getEmployee();
 			this.currentManager = currentManager.getFirst_name() + " " + currentManager.getLast_name();
 		}

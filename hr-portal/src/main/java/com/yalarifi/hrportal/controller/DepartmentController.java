@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +27,7 @@ public class DepartmentController {
 
     
     @Autowired
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
     
     
     @RequestMapping(value = "/departments")
@@ -51,6 +52,7 @@ public class DepartmentController {
     @RequestMapping(
     		value= "/departments",
     		method= RequestMethod.POST)
+    @PreAuthorize("hasAuthority('WRITE')")
     @LogExecutionTime
     public ResponseEntity<?> addDepartment(@RequestBody Map<String, Object> payload) throws ParseException {
 
@@ -75,19 +77,20 @@ public class DepartmentController {
     @RequestMapping(
     		value= "/departments",
     		method= RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('WRITE')")
     @LogExecutionTime
     public ResponseEntity<?> changeManager(@RequestBody Map<String, Object> payload) throws ParseException {
     	
-    	if (payload.equals(null))
+    	if (payload == null)
     		logger.info("payload is null");
     	
     	logger.info("/PUT /departments with deptName = " + payload.get("deptNo") + 
     							" and deptManagerId = " + payload.get("deptManagerId"));
 
     	
-    	if (payload.equals(null) || 
-    			payload.get("deptNo").equals(null) || 
-    			payload.get("deptManagerId").equals(null)) {
+    	if (payload == null || 
+    			payload.get("deptNo") == null || 
+    			payload.get("deptManagerId") == null) {
     		return new ResponseEntity<Error>(new Error(), HttpStatus.BAD_REQUEST);
     	}
 

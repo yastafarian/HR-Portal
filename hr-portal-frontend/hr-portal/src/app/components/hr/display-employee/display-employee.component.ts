@@ -34,6 +34,8 @@ export class DisplayEmployeeComponent implements OnInit {
 
   formattedTitle: String;
 
+  canWrite = false;
+
   searchedId = '';
 
   found = false;
@@ -43,6 +45,8 @@ export class DisplayEmployeeComponent implements OnInit {
   ngOnInit() {
     if (!this.app.authenticated)
       this.redirectToLogin();
+    
+    this.canWrite = this.app.checkCanWrite();
   }
 
   getEmployee(id: string){

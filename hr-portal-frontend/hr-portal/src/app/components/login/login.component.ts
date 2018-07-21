@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.form);
-    
     this.app.authenticate(this.form, () => {
       this.app.authenticated = true;
       this.router.navigateByUrl('/');

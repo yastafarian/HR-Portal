@@ -3,6 +3,7 @@ package com.yalarifi.hrportal.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +59,11 @@ public class DepartmentServiceTests {
 	}
 	
 	@Test
-	public void addDepartment_Test() {
+	public void addDepartment_Test() throws ParseException {
 		Department newDepartment = new Department("Test Department", "D001");
 		when(mockDeptRepo.save(newDepartment)).thenReturn(newDepartment);
 		DepartmentDTO departmentDTO = new DepartmentDTO(newDepartment);
-		assertEquals(testee.addDepartment(departmentDTO), departmentDTO);
+		assertEquals(testee.addDepartment(departmentDTO.getDeptName(), departmentDTO.getDeptNumber(), 0), departmentDTO);
 	}
 	
 	

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.yalarifi.hrportal.dto.EmployeeDTO;
 import com.yalarifi.hrportal.entity.DepartmentManager;
 import com.yalarifi.hrportal.entity.Employee;
-import com.yalarifi.hrportal.loggers.LogExecutionTime;
-import com.yalarifi.hrportal.repository.DepartmentEmployeeRespository;
 import com.yalarifi.hrportal.repository.DepartmentManagerRepository;
 import com.yalarifi.hrportal.repository.EmployeeRepository;
 
@@ -22,15 +20,12 @@ public class EmployeeService {
 	final Logger logger = LogManager.getLogger();
 	
 	@Autowired
-	EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
 	
 	@Autowired
-	DepartmentManagerRepository departmentManagerRepository;
+	private DepartmentManagerRepository departmentManagerRepository;
 	
-	@Autowired
-	DepartmentEmployeeRespository departmentEmployeeRepository;
 	
-	@LogExecutionTime
 	public EmployeeDTO findByEmpNo(int empNo) {
 		Employee employeeEntity = employeeRepository.findById(empNo).orElse(null);
 		if (employeeEntity != null)
@@ -42,7 +37,7 @@ public class EmployeeService {
 	public EmployeeDTO editEmployee(EmployeeDTO employee) {
 		Employee newEmployee = employeeRepository.findById(employee.getId()).orElse(null);
 		
-		if (newEmployee.equals(null))
+		if (newEmployee == null)
 			return null;
 		
 		newEmployee.setFirst_name(employee.getFirstName());

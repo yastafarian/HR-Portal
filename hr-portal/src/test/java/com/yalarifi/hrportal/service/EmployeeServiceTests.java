@@ -33,7 +33,7 @@ public class EmployeeServiceTests {
 		Date hireDate = Date.valueOf("2010-08-01");
 		
 		Employee emp = EmployeeFactory.mockSingleEmployee(id, birthDate, hireDate);
-		when(employeeRepo.findByEmpNo(1)).thenReturn(emp);
+		when(employeeRepo.findById(1).orElse(null)).thenReturn(emp);
 		EmployeeDTO expected = EmployeeDtoFactory.mockSingleEmployee(id, birthDate, hireDate);
 		
 		assertEquals(testee.findByEmpNo(id), expected);
@@ -48,7 +48,7 @@ public class EmployeeServiceTests {
 		EmployeeDTO employeeDTO = EmployeeDtoFactory.mockSingleEmployee(id, birthDate, hireDate);
 		
 		when(employeeRepo.save(employee)).thenReturn(employee);
-		when(employeeRepo.findByEmpNo(employeeDTO.getId())).thenReturn(employee);
+		when(employeeRepo.findById(employeeDTO.getId()).orElse(null)).thenReturn(employee);
 		
 		assertEquals(testee.editEmployee(employeeDTO), employeeDTO);
 	}

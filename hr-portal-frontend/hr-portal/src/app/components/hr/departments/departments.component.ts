@@ -25,6 +25,8 @@ export class DepartmentsComponent implements OnInit {
 
   loading = true;
 
+  canWrite = false;
+
   constructor(
     private api: DepartmentApiService,
     private dataService: DepartmentDataService,
@@ -33,8 +35,10 @@ export class DepartmentsComponent implements OnInit {
     private dialog: MatDialog  ) { }
 
   ngOnInit() {
-    if (this.app.authenticated)
+    if (this.app.authenticated) {
+      this.canWrite = this.app.checkCanWrite();
       this.fetchData();
+    }
     else
       this.redirectToLogin();
   }

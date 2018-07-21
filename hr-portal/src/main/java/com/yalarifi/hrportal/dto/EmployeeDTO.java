@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
 import com.yalarifi.hrportal.entity.DepartmentEmployee;
 import com.yalarifi.hrportal.entity.Employee;
 import com.yalarifi.hrportal.entity.Salary;
@@ -20,7 +18,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class EmployeeDTO {
 	
-	private static final Logger logger = Logger.getLogger(EmployeeDTO.class.getName());
 	
 	private int id;
 	
@@ -45,7 +42,7 @@ public class EmployeeDTO {
 		List<Salary> salaries = entity.getSalaries();
 		Date now = new Date();
 		
-		if (!titles.equals(null) && titles.size() > 0) {
+		if (titles != null && titles.size() > 0) {
 			for (Title title : titles) {
 				if (title.getToDate().after(now)) {
 					this.currentTtile = title.getId().getTitle();
@@ -53,7 +50,7 @@ public class EmployeeDTO {
 			}
 		}
 		
-		if (!salaries.equals(null) && salaries.size() > 0) {
+		if (salaries != null && salaries.size() > 0) {
 			for(Salary salary : salaries) {
 				if (salary.getToDate().after(now)) {
 					this.currentSalary = salary.getSalary();

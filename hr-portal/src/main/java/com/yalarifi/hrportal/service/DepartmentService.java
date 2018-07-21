@@ -22,13 +22,13 @@ import com.yalarifi.hrportal.repository.EmployeeRepository;
 public class DepartmentService {
 	
 	@Autowired
-	DepartmentRepository departmentRepository;
+	private DepartmentRepository departmentRepository;
 	
 	@Autowired
-	EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
 	
 	@Autowired
-	DepartmentManagerRepository departmentManagerRepository;
+	private DepartmentManagerRepository departmentManagerRepository;
 	
 	public List<DepartmentDTO> findAll(){
 		Iterable<Department> depts = departmentRepository.findAll();
@@ -45,7 +45,6 @@ public class DepartmentService {
 		return deptDTOs;
 	}
 
-	
 	public DepartmentDTO addDepartment(String deptNo, String deptName, int empNo) throws ParseException {
 		
 		//TODO: Review and refactor
@@ -90,7 +89,7 @@ public class DepartmentService {
 		Employee employee = employeeRepository.findById(empNo).orElse(null);
 		
 		//Check if both entries exist
-		if (employee.equals(null) || department.equals(null))
+		if (employee == null || department == null)
 			return null;
 		
 		//Now find current manager and update it's status

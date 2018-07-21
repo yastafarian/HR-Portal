@@ -24,12 +24,32 @@ export class AppService {
     }: {});
 
     this.http.get('http://localhost:9000/user', {headers: headers}).subscribe(response => {
-      if (response['name']){
+      //console.log(response);
+      if (response['name'] && response['authorities']){        
+        this.setUpLocalStorage(response);
         this.authenticated = true;
-      } else {
+      } 
+      else {
         this.authenticated = false;
       }
       return callback && callback();
     });
+  }
+
+  setUpLocalStorage(response){
+    let auths = [];
+    for (var item in response['authorities']){
+      auths.push(response['authorities'][item]['authority']);
+    }
+    localStorage.setItem('authorities', JSON.stringify(auths));
+  }
+
+  checkCanWrite(): boolean{
+    let auths = JSON.parse(localStorage.getItem('authorities'));
+    for (var index in auths){
+      if (auths[index] === 'WRITE')
+          return true;
+    }
+    return false;
   }
 }

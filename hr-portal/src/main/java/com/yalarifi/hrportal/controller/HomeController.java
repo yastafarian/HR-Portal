@@ -31,7 +31,6 @@ public class HomeController {
 	@ResponseBody
 	public Principal user(Principal user) {
 		logger.info("/user called " + user.getName());
-		
 		return user;
 	}
 }
