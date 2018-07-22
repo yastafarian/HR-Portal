@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,7 @@ public class EmployeeServiceTests {
 		Date hireDate = Date.valueOf("2010-08-01");
 		
 		Employee emp = EmployeeFactory.mockSingleEmployee(id, birthDate, hireDate);
-		when(employeeRepo.findById(1).orElse(null)).thenReturn(emp);
+		when(employeeRepo.findById(1)).thenReturn(Optional.of(emp));
 		EmployeeDTO expected = EmployeeDtoFactory.mockSingleEmployee(id, birthDate, hireDate);
 		
 		assertEquals(testee.findByEmpNo(id), expected);
@@ -48,7 +49,7 @@ public class EmployeeServiceTests {
 		EmployeeDTO employeeDTO = EmployeeDtoFactory.mockSingleEmployee(id, birthDate, hireDate);
 		
 		when(employeeRepo.save(employee)).thenReturn(employee);
-		when(employeeRepo.findById(employeeDTO.getId()).orElse(null)).thenReturn(employee);
+		when(employeeRepo.findById(employeeDTO.getId())).thenReturn(Optional.of(employee));
 		
 		assertEquals(testee.editEmployee(employeeDTO), employeeDTO);
 	}

@@ -1,5 +1,6 @@
 package com.yalarifi.hrportal.entity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +10,11 @@ public class DepartmentFactory {
 		return new ArrayList<Department>();
 	}
 	
-	public static List<Department> mockDepartmentList(int number) {
+	public static List<Department> mockDepartmentList(int number) throws ParseException {
 		List<Department> departments = new ArrayList<Department>();
-		for(int i = 0; i< number; i++) {
-			Department dept = new Department("d" + number, "dept " + number);
+		
+		for(int i = 1; i <= number; i++) {
+			Department dept = new Department("d" + i, "dept" + i);
 			departments.add(dept);
 		}
 		return departments;

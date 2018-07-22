@@ -17,6 +17,7 @@ import com.yalarifi.hrportal.entity.classid.DepartmentEmployeeID;
 import com.yalarifi.hrportal.repository.DepartmentManagerRepository;
 import com.yalarifi.hrportal.repository.DepartmentRepository;
 import com.yalarifi.hrportal.repository.EmployeeRepository;
+import com.yalarifi.hrportal.utility.DateUtility;
 
 @Service
 public class DepartmentService {
@@ -47,24 +48,23 @@ public class DepartmentService {
 
 	public DepartmentDTO addDepartment(String deptNo, String deptName, int empNo) throws ParseException {
 		
-		//TODO: Review and refactor
-		//TODO: Create new unit tests
-		//TODO: assign aspects
-		//TODO: Run Scenario again
-		
 		Department newDepartmentEntity = new Department(deptNo, deptName);
 		newDepartmentEntity = departmentRepository.save(newDepartmentEntity);
 		
 		Employee managerEntity = employeeRepository.findById(empNo).orElse(null);
 		
-		//TODO: check if null
+		/*
+		 * we only want to create departments and assign managers who
+		 * only if they exist in the DB. 
+		 */
+		if (managerEntity == null)
+			return null;
 		
 		/*
 		 * Assume the from_date is always today's date when creating a new department
 		 */
-		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date fromDate = new Date();
-		Date toDate = sdf.parse("9999-01-01");
+		Date toDate = DateUtility.getInfinityDate();
 		
 		DepartmentManager deptManager = new DepartmentManager(new DepartmentEmployeeID(empNo, deptNo),
 																	newDepartmentEntity, 
@@ -72,13 +72,13 @@ public class DepartmentService {
 																	fromDate, 
 																	toDate);
 		
-		deptManager = departmentManagerRepository.save(deptManager);
+		departmentManagerRepository.save(deptManager);
+		
 		
 		List<DepartmentManager> manager = new ArrayList<DepartmentManager>();
 		manager.add(deptManager);
 		
 		newDepartmentEntity.setCurrentManager(manager);
-		
 		
 		return new DepartmentDTO(newDepartmentEntity);
 	}

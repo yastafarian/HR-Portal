@@ -31,6 +31,12 @@ public class DepartmentDTO {
 		this.deptNumber = newDepartmentEntity.getDept_no();
 	}
 	
+	public DepartmentDTO(String name, String number) {
+		this.deptName = name;
+		this.deptNumber = number;
+		this.currentManager = "Vacant";
+	}
+	
 	public DepartmentDTO() {
 		
 	}
