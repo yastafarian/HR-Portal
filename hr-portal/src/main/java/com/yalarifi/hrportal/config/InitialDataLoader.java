@@ -42,6 +42,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		if (alreadySetup)
 			return;
 		
+		setUpRolesAndPrivileges();
+	}
+
+	private void setUpRolesAndPrivileges() {
 		/*
 		 * for the purpose of this demo, I am programmatically creating
 		 * two users, one can read and one can write.
@@ -65,6 +69,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		alreadySetup = true;
 	}
 	
+	@Transactional
 	private User createUserIfNotFound(String name, List<Role> roles) {
 		User user = userRepo.findByEmail(name);
 		
@@ -82,6 +87,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		return user;
 	}
 	
+	@Transactional
 	private Role createRoleIfNotFound(String name, List<Privilege> privs) {
 		Role role = roleRepo.findByName(name);
 		

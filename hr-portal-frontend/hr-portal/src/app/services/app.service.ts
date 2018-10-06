@@ -13,8 +13,6 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   authenticate(credentials, callback){
-    console.log(AppService.name +'::: ' + 'authenticate() called.');
-
     /*
       If there are credentials provided, then add an autherization header, otherwise
       the headers will be empty.
@@ -24,7 +22,6 @@ export class AppService {
     }: {});
 
     this.http.get('http://localhost:9000/user', {headers: headers}).subscribe(response => {
-      //console.log(response);
       if (response['name'] && response['authorities']){        
         this.setUpLocalStorage(response);
         this.authenticated = true;
